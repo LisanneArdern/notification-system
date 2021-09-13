@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import GlobalProvider from './GlobalContext'
+import { GlobalContext } from './GlobalContext'
+import React, { Fragment } from 'react'
+import Notification from './Notification'
+import styled from 'styled-components'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+      <GlobalProvider>
+        <GlobalContext.Consumer>
+          {context => (
+              <React.Fragment>
+                <Button onClick={context.showSuccess}>Success</Button>
+                <Button onClick={context.showInformation}>Information</Button>
+                <Button onClick={context.showError}>Error</Button>
+                <Button onClick={context.showWarning}>Warning</Button>
+              </React.Fragment>
+            )
+          }
 
-export default App;
+        </GlobalContext.Consumer>
+        <div>
+          <Notification/>
+        </div>
+      </GlobalProvider>
+    </div>
+  )
+}
+const Button = styled.button`
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  padding: 1px 10px;
+  text-align: center;
+  margin: 0 1px 1px 0;
+  font-weight: 300px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);`
+
+
+
+export default App
